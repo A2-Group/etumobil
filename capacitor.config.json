@@ -1,0 +1,8 @@
+{
+  "appId": "com.etumobil.tobb",
+  "appName": "Etü Mobil",
+  "webDir": "build",
+  "server": {
+    "androidScheme": "https"
+  }
+}

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Etü Mobil</string>
+    <string name="title_activity_main">Etü Mobil</string>
+    <string name="package_name">com.etumobil.tobb</string>
+    <string name="custom_url_scheme">com.etumobil.tobb</string>
+</resources>
