@@ -1,5 +1,8 @@
 # Etumobil
 
+https://github.com/ISmillex/etumobil/assets/72645646/42f1082e-8007-4cc4-8a83-41470b3d5b38
+
+video sped up by 50%
 
 ## Table of Contents
 
