@@ -9,10 +9,23 @@ export const stores = writable({
     gradientColor: "linear-gradient(60deg, #543ab7 0%, #00acc1 100%)",
     gradientColor2: "linear-gradient(40deg, #ddc0ff , #c4ddff)",
 
+    studentNo: "",
+
     isLoggedIn: false,
     isAdmin: false,
     currentComponentIndex: 0,
+    currentState: "student",
     isOverlayOpen: false,
 
     swiper: null,
+
+    student: {
+        student_ID: null,
+        lectures: [],
+    },
+    teacher: null,
+    lecture: null,
+    class: null,
+    branch: null,
+
 });

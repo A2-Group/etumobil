@@ -7,8 +7,9 @@
 
     import DynamicBackground from "./DynamicBackground.svelte";
 
-    export let LectureSchedule;
-    export let Profile;
+    export let Schedule;
+    export let StudentProfile;
+    export let LectureInfo;
     export let List;
     // export let DynamicBackground;
 
@@ -38,10 +39,14 @@
 
     <div class="swiper-wrapper">
         <div class="swiper-slide">
-            <svelte:component this={LectureSchedule}/>
+            <svelte:component this={Schedule}/>
         </div>
         <div class="swiper-slide">
-            <svelte:component this={Profile}/>
+            {#if  $stores.currentState === "student"}
+                <svelte:component this={StudentProfile}/>
+            {:else if $stores.currentState === "lecture"}
+                <svelte:component this={LectureInfo}/>
+            {/if}
         </div>
         <div class="swiper-slide">
             <svelte:component this={List}/>

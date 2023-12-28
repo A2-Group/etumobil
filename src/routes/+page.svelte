@@ -5,17 +5,19 @@
     import NavigationContainer from "../components/NavigationContainer.svelte";
     import Menu from "../components/Menu.svelte";
     import List from "../components/List.svelte";
-    import Profile from "../components/Profile.svelte";
-    import LectureSchedule from "../components/LectureSchedule.svelte";
+    import StudentProfile from "../components/StudentProfile.svelte";
+    import LectureInfo from "../components/LectureInfo.svelte";
+    import Schedule from "../components/Schedule.svelte";
     import BottomBar from "../components/BottomBar.svelte";
     import DynamicBackground from "../components/DynamicBackground.svelte";
+
 
 </script>
 
 
 {#if $stores.isLoggedIn === true}
     <Menu/>
-    <NavigationContainer {LectureSchedule} {Profile} {List} {DynamicBackground}/>
+    <NavigationContainer {Schedule} {StudentProfile} {LectureInfo} {List} {DynamicBackground}/>
     <BottomBar/>
 {:else}
     <Login/>

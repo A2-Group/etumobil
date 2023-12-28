@@ -4,6 +4,9 @@
     import Background from "./Background.svelte";
     import {onMount} from "svelte";
 
+    import {getStudent, getStudentLectures} from "$lib/fetcher.js";
+
+
 
     let studentNo;
     let showAlert = false;
@@ -17,10 +20,11 @@
 
     function keyboardHandler(event) {
         studentNo = event.target.value;
+        $stores.studentNo = studentNo;
         $stores.isAdmin = studentNo === "221110085" || studentNo === "201101013";
     }
 
-    function clickHandler() {
+    async function clickHandler() {
         let inputField = document.querySelector('input[name="studentNo"]');
         if (inputField.value.length !== 9) {
             inputField.value = '';
@@ -29,6 +33,10 @@
         }
         else {
             $stores.isLoggedIn = true;
+            $stores.student = await getStudent(studentNo);
+            $stores.student.lectures = await getStudentLectures(studentNo);
+
+
         }
     }
 
