@@ -1,6 +1,5 @@
 <script>
     import {stores} from "$lib/stores.js";
-    import {hexToRGBA} from "$lib/utils.js";
 
     export const data = [
         {title: "title1", description: "description1"},

@@ -1,4 +1,5 @@
 import { writable } from 'svelte/store';
+import Student from "../models/student";
 export const stores = writable({
     textColor: "#37516d",
     backgroundColor: "#F5F5F5",
@@ -19,10 +20,7 @@ export const stores = writable({
 
     swiper: null,
 
-    student: {
-        student_ID: null,
-        lectures: [],
-    },
+    student: new Student(),
     teacher: null,
     lecture: null,
     class: null,

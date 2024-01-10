@@ -7,7 +7,6 @@
         submenu3: false,
     }
     function open(subMenu) {
-
         menu[subMenu] = !menu[subMenu]
         for (let key in menu) {
             if (key !== subMenu) {

@@ -1,5 +1,7 @@
 // import mysql from 'mysql2/promise';
 
+import Student  from '../models/student.js';
+
 // import { config } from 'dotenv';
 //
 // config();
@@ -27,17 +29,25 @@ export const getStudent = async (id) => {
     //     }
     // )
 
-    return {
-        student_ID: "221110085",
-        student_Fname: "Archyn",
-        student_Lname: "Mikhailov",
-        student_Mail: "amikhailov@etu.edu.tr",
-        student_Department: "Computer Engineering",
+    // return {
+    //     student_ID: "221110085",
+    //     student_Fname: "Archyn",
+    //     student_Lname: "Mikhailov",
+    //     student_Mail: "amikhailov@etu.edu.tr",
+    //     student_Department: "Computer Engineering",
+    // };
 
-    };
+    return new Student(
+        "221110085",
+        "Archyn",
+        "Mikhailov",
+        "amikhailov@etu.edu.tr",
+        "Computer Engineering",
+    );
 }
+// get function to get lecture data by id
 
-// get function to get teacher data by id
+
 export const getTeacher = async (id) => {
     connection.query(
         `SELECT * FROM Teacher WHERE teacher_ID = ${id} `,
@@ -50,7 +60,7 @@ export const getTeacher = async (id) => {
     )
 }
 
-// get function to get lecture data by id
+
 export const getLecture = async (id) => {
     // connection.query(
     //     `SELECT * FROM Lecture WHERE lecture_ID = ${id}`,
@@ -68,7 +78,6 @@ export const getLecture = async (id) => {
                 lecture_ID: "1",
                 lecture_Code: "BIL113",
                 lecture_Name: "Introduction to Computer Science",
-
             }
             break;
         }
@@ -141,7 +150,6 @@ export const getClass = async (id) => {
 }
 
 
-// get function to get branch data by id
 export const getBranch = async (id) => {
     connection.query(
         `SELECT * FROM Branch WHERE branch_ID = ${id}`,
@@ -167,12 +175,12 @@ export const searchTeacher = async (fullName) => {}
 // get function to get student's lectures by id returns array of classes
 export const getStudentLectures = async (id) => {
     return [
-        "BIL113",
-        "BIL211",
-        "BIL212",
-        "BIL214",
-        "BIL265",
-        "BIL311",
+        "BIL395",
+        "BIL481",
+        "BIL331",
+        "BIL345",
+        "UGI315",
+        "MAT101",
     ];
 }
 
@@ -194,198 +202,130 @@ export const getLectureStudents = async (id) => {
 export const getLectureSchedule = async (id) => {
     let res
     switch (id) {
-        case "BIL113": res = [
+        case "BIL395": res = [
             {
-                day: "Mon",
-                start: "09",
+                day: "Pzt",
+                start: "10",
             },
             {
-                day: "Mon",
-                start: null,
-            },
-            {
-                day: "Tue",
-                start: null,
-            },
-            {
-                day: "Wed",
-                start: null,
-            },
-            {
-                day: "Thu",
-                start: null,
-            },
-            {
-                day: "Fri",
+                day: "Pzt",
                 start: "11",
             },
             {
-                day: "Sat",
-                start: null,
-            },
-        ];
-        break;
-
-        case "BIL211": res = [
-            {
-                day: "Mon",
-                start: null,
+                day: "Per",
+                start: "10",
             },
             {
-                day: "Mon",
+                day: "Per",
                 start: "11",
             },
-            {
-                day: "Tue",
-                start: null,
-            },
-            {
-                day: "Wed",
-                start: null,
-            },
-            {
-                day: "Thu",
-                start: null,
-            },
-            {
-                day: "Fri",
-                start: null,
-            },
-            {
-                day: "Sat",
-                start: null,
-            },
         ];
         break;
 
-        case "BIL212": res = [
+        case "BIL481": res = [
             {
-                day: "Mon",
-                start: null,
+                day: "Sal",
+                start: "14",
             },
             {
-                day: "Mon",
-                start: null,
+                day: "Sal",
+                start: "15",
             },
             {
-                day: "Tue",
+                day: "Per",
+                start: "08",
+            },
+            {
+                day: "Per",
                 start: "09",
+            }
+        ];
+        break;
+
+        case "BIL331": res = [
+            {
+                day: "Pzt",
+                start: "12",
             },
             {
-                day: "Wed",
-                start: null,
+                day: "Pzt",
+                start: "13",
             },
             {
-                day: "Thu",
-                start: null,
+                day: "Per",
+                start: "13",
             },
             {
-                day: "Fri",
-                start: null,
-            },
-            {
-                day: "Sat",
-                start: null,
-            },
+                day: "Per",
+                start: "14",
+            }
         ];
 
         break;
 
-        case "BIL214": res = [
+        case "BIL345": res = [
             {
-                day: "Mon",
-                start: null,
+                day: "Sal",
+                start: "12",
             },
             {
-                day: "Mon",
-                start: null,
+                day: "Sal",
+                start: "13",
             },
             {
-                day: "Tue",
-                start: null,
+                day: "Cum",
+                start: "13",
             },
             {
-                day: "Wed",
-                start: "09",
+                day: "Cum",
+                start: "16",
+            }
+        ];
+
+        break;
+
+        case "UGI315": res = [
+            {
+                day: "Car",
+                start: "14",
             },
             {
-                day: "Thu",
-                start: null,
+                day: "Car",
+                start: "15",
             },
             {
-                day: "Fri",
-                start: null,
-            },
-            {
-                day: "Sat",
-                start: null,
+                day: "Car",
+                start: "16",
             },
         ];
 
         break;
 
-        case "BIL265": res = [
+        case "MAT101": res = [
             {
-                day: "Mon",
-                start: null,
+                day: "Pzt",
+                start: "08",
             },
             {
-                day: "Mon",
-                start: null,
-            },
-            {
-                day: "Tue",
-                start: null,
-            },
-            {
-                day: "Wed",
-                start: null,
-            },
-            {
-                day: "Thu",
+                day: "Pzt",
                 start: "09",
             },
             {
-                day: "Fri",
-                start: null,
+                day: "Per",
+                start: "14",
             },
             {
-                day: "Sat",
-                start: null,
-            },
-        ];
-
-        break;
-
-        case "BIL311": res = [
-            {
-                day: "Mon",
-                start: null,
+                day: "Per",
+                start: "15",
             },
             {
-                day: "Mon",
-                start: null,
+                day: "Cum",
+                start: "08",
             },
             {
-                day: "Tue",
-                start: null,
-            },
-            {
-                day: "Wed",
-                start: null,
-            },
-            {
-                day: "Thu",
-                start: null,
-            },
-            {
-                day: "Fri",
+                day: "Cum",
                 start: "09",
-            },
-            {
-                day: "Sat",
-                start: null,
-            },
+            }
         ];
     }
 

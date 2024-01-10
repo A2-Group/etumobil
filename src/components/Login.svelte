@@ -33,10 +33,7 @@
         }
         else {
             $stores.isLoggedIn = true;
-            $stores.student = await getStudent(studentNo);
-            $stores.student.lectures = await getStudentLectures(studentNo);
-
-
+            $stores.student = await getStudent($stores.studentNo);
         }
     }
 

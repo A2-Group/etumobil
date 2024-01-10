@@ -5,9 +5,6 @@
         $stores.isOverlayOpen = !$stores.isOverlayOpen;
     }
 
-
-
-
 </script>
 
 
