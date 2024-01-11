@@ -1,6 +1,11 @@
-// import mysql from 'mysql2/promise';
+//import mysql from 'mysql2/promise';
 
-import Student  from '../models/student.js';
+// var mysql = require('mysql');
+
+//import mysql from 'mysql'
+//import createConnection from 'mysql'
+
+import Student from '../models/student.js';
 
 // import { config } from 'dotenv';
 //
@@ -16,35 +21,50 @@ import Student  from '../models/student.js';
 //     password: process.env.DB_PASSWORD,
 //     database: process.env.DB_NAME
 // });
+/*
+const connection = mysql.createConnection({
+    host: '141.144.194.239',
+    port: '3306',
+    user: 'alkin',
+    password: 'alkiner3232'
+});*/
+
+/*const connection = mysql.createConnection({
+    host: '141.144.194.239',
+    port: '3306',
+    user: 'alkin',
+    password: 'alkiner3232',
+    database: 'etumobile'
+});*/
+
+
+// let query = `SELECT * FROM Student WHERE student_ID = 201101013 or student_ID = 201101014`;
+//
+// fetch(`http://localhost:5173/api?query=${query}`)
+//     .then(response => response.json())
+//     .then(data => console.log(data))
+
 
 // get function to get student data by id
 export const getStudent = async (id) => {
-    // connection.query(
-    //     `SELECT * FROM Student WHERE student_ID = ${id}`,
-    //     function (err, results, fields) {
-    //         if (err) {
-    //             console.log(err.message);
-    //         }
-    //         return results;
-    //     }
-    // )
 
-    // return {
-    //     student_ID: "221110085",
-    //     student_Fname: "Archyn",
-    //     student_Lname: "Mikhailov",
-    //     student_Mail: "amikhailov@etu.edu.tr",
-    //     student_Department: "Computer Engineering",
-    // };
+    await getLecture(id);
+    let query = `SELECT * FROM Student WHERE student_ID = ${id}`;
 
-    return new Student(
-        "221110085",
-        "Archyn",
-        "Mikhailov",
-        "amikhailov@etu.edu.tr",
-        "Computer Engineering",
-    );
+    return await fetch(`http://localhost:5173/api?query=${query}`)
+        .then(response => response.json())
+        .then(response => response["data"])
+        .then(data => data[0][0])
+        .then(student => new Student(student["student_ID"],
+            student["student_FName"],
+            student["student_LName"],
+            student["student_Mail"],
+            student["student_Department"],
+            student["student_Grade"]));
+
 }
+
+
 // get function to get lecture data by id
 
 
@@ -61,79 +81,22 @@ export const getTeacher = async (id) => {
 }
 
 
+
 export const getLecture = async (id) => {
-    // connection.query(
-    //     `SELECT * FROM Lecture WHERE lecture_ID = ${id}`,
-    //     function (err, results, fields) {
-    //         if (err) {
-    //             console.log(err.message);
-    //         }
-    //         return results;
-    //     }
-    // )
-    let res
-    switch (id) {
-        case "BIL113": {
-            res = {
-                lecture_ID: "1",
-                lecture_Code: "BIL113",
-                lecture_Name: "Introduction to Computer Science",
-            }
-            break;
-        }
 
-        case "BIL211": {
-            res = {
-                lecture_ID : "2",
-                lecture_Code: "BIL211",
-                lecture_Name: "Data Structures",
+    let query = `SELECT * FROM Enrolled_Lectures WHERE enrolled_StudentID = ${id}`;
 
-            }
-            break;
-        }
+    return await fetch(`http://localhost:5173/api?query=${query}`)
+        .then(response => response.json())
+        .then(response => response["data"])
+        .then(data => data[0][0])
+        .then(student => new Student(student["student_ID"],
+            student["student_FName"],
+            student["student_LName"],
+            student["student_Mail"],
+            student["student_Department"],
+            student["student_Grade"]));
 
-        case "BIL212": {
-            res = {
-                lecture_ID : "2",
-                lecture_Code: "BIL212",
-                lecture_Name: "Algorithms",
-
-            }
-            break;
-        }
-
-        case "BIL214": {
-            res = {
-                lecture_ID : "3",
-                lecture_Code: "BIL214",
-                lecture_Name: "Discrete Mathematics",
-
-            }
-            break;
-        }
-
-        case "BIL265": {
-            res = {
-                lecture_ID : "4",
-                lecture_Code: "BIL265",
-                lecture_Name: "Computer Organization",
-
-            }
-            break;
-        }
-
-        case "BIL311": {
-            res = {
-                lecture_ID : "5",
-                lecture_Code: "BIL311",
-                lecture_Name: "Operating Systems",
-
-            }
-            break;
-        }
-    }
-
-    return res;
 }
 
 // get function to get class data by id
@@ -332,6 +295,12 @@ export const getLectureSchedule = async (id) => {
     return res
 }
 
+export function isStudentNoValid(no) {
+
+    // 9 haneli mi bak
+    // Eger oyleyse +server.js'e erisip fetch yapacak.
+    return true;
+}
 
 
 

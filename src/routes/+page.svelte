@@ -10,6 +10,8 @@
     import Schedule from "../components/Schedule.svelte";
     import BottomBar from "../components/BottomBar.svelte";
     import DynamicBackground from "../components/DynamicBackground.svelte";
+    import {onMount} from "svelte";
+
 
 
 </script>

@@ -1,6 +1,6 @@
 <script>
     import {stores} from "$lib/stores.js";
-    import {hexToRGBA} from "$lib/utils.js";
+    import {hexToRGBA} from "../utilities/utils.js";
     import { fade } from 'svelte/transition';
 
     function clickHandler(index) {

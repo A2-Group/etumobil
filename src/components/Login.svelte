@@ -4,8 +4,9 @@
     import Background from "./Background.svelte";
     import {onMount} from "svelte";
 
-    import {getStudent, getStudentLectures} from "$lib/fetcher.js";
+    import {getStudent, getStudentLectures, isStudentNoValid} from "$lib/fetcher.js";
 
+    import {writeSecretFile} from "../utilities/fileIO.js"
 
 
     let studentNo;
@@ -18,23 +19,37 @@
         document.body.style.backgroundSize = "cover";
     });
 
-    function keyboardHandler(event) {
-        studentNo = event.target.value;
-        $stores.studentNo = studentNo;
-        $stores.isAdmin = studentNo === "221110085" || studentNo === "201101013";
+    async function keyboardHandler(event) {
+        let studentNo = event.target.value;
+
+        if (studentNo.length === 9) {
+            if (isStudentNoValid(studentNo)) {
+                $stores.isAdmin = (studentNo === "221110085" || studentNo === "201101013");
+            }
+            else {
+                studentNo = '';
+                showAlert = true;
+                setTimeout(() => {showAlert = false}, 3000);
+            }
+        }
     }
 
     async function clickHandler() {
-        let inputField = document.querySelector('input[name="studentNo"]');
-        if (inputField.value.length !== 9) {
-            inputField.value = '';
-            showAlert = true;
-            setTimeout(() => {showAlert = false}, 3000);
+        let studentNo = document.querySelector('input[name="studentNo"]');
+        let adminKey = document.querySelector('input[name="adminkey"]');
+
+        if ($stores.isAdmin) {
+            if (adminKey.value !== "") {
+                adminKey.value = '';
+                showAlert = true;
+                setTimeout(() => {showAlert = false}, 3000);
+                return;
+            }
         }
-        else {
-            $stores.isLoggedIn = true;
-            $stores.student = await getStudent($stores.studentNo);
-        }
+        $stores.isLoggedIn = true;
+        $stores.ownerStudent = await getStudent(studentNo.value);
+        $stores.currentState = $stores.states.STUDENT;
+        $stores.currentObject = $stores.ownerStudent;
     }
 
 </script>
@@ -42,7 +57,7 @@
 
 <div class="content">
     {#if showAlert}
-        <div class="alert" style="background-color: {$stores.accentColor}" transition:fade={{duration: 2000}}>Yanlış okul numarası!</div>
+        <div class="alert" style="background-color: {$stores.accentColor}" transition:fade={{duration: 2000}}>Girdiğiniz Bilgi Yanlış!</div>
     {/if}
     <div class="text-container">
         <img src="/logo.png" alt="logo">
@@ -51,7 +66,7 @@
     <Background backgroundColor="white"/>
     <div class="form-container">
         <form>
-            <input name="studentNo" placeholder="Okul Numarasi" maxlength="9" on:keydown={keyboardHandler} on:keyup={keyboardHandler}/>
+            <input name="studentNo" placeholder="Okul Numarasi" maxlength="9" on:keyup={keyboardHandler}/>
             {#if $stores.isAdmin}
                 <input name="adminkey" placeholder="Şifre" transition:fade={{duration: 300}} />
             {/if}

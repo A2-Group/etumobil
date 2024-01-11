@@ -1,13 +1,14 @@
 import {stores} from "$lib/stores.js";
-import {getLectureSchedule, getLectureStudents, getStudentLectures} from "$lib/fetcher.js";
+import {getLectureSchedule, getLectureStudents, getStudentLectures, getLecture} from "$lib/fetcher.js";
 
 export default class Student {
-    constructor(student_ID, student_Fname, student_Lname, student_Mail, student_Department) {
+    constructor(student_ID, student_Fname, student_Lname, student_Mail, student_Department, student_Grade) {
         this.student_ID = student_ID;
         this.student_Fname = student_Fname;
         this.student_Lname = student_Lname;
         this.student_Mail = student_Mail;
         this.student_Department = student_Department;
+        this.student_Grade = student_Grade;
         this.lectures = [];
     }
 
@@ -32,7 +33,7 @@ export default class Student {
     }
 
     setLectures(lectures) {
-        this.lectures = lectures;
+        this.lectures = getLecture(this.student_ID);
     }
 
     async createSchedule() {

@@ -4,7 +4,7 @@
     import { fade } from 'svelte/transition';
     import Hamburger from "./Hamburger.svelte";
     import OverLayMenu from "./OverLayMenu.svelte";
-    import {hexToRGBA} from "$lib/utils.js";
+    import {hexToRGBA} from "../utilities/utils.js";
 
     let title
     $: switch ($stores.currentComponentIndex) {

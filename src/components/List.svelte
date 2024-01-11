@@ -5,7 +5,7 @@
         {title: "title1", description: "description1"},
         {title: "title2", description: "description2"},
         {title: "title3", description: "description3"},
-        {title: "title4", description: "Malzeme Bilimi ve Nanoteknoloji Mühendisliği"},
+        {title: "title4", description: "description4"},
         {title: "title5", description: "description5"},
         {title: "title6", description: "description6"},
         {title: "title7", description: "description7"},
@@ -19,12 +19,16 @@
 
 <div class="content">
     <div class="list">
-        {#each data as item}
-            <div class="item">
-                <div class="title" style="color: {$stores.textColor}">{item.title}</div>
-                <div class="description" style="color: {$stores.textColor}">{item.description}</div>
-            </div>
-        {/each}
+        {#await $stores.student.lectures}
+            waiting...
+        {:then lectures}
+            {#each lectures as lecture}
+                <div class="item">
+                    <div class="title" style="color: {$stores.textColor}">{lecture.title}</div>
+                    <div class="description" style="color: {$stores.textColor}">{lecture.description}</div>
+                </div>
+            {/each}
+        {/await}
     </div>
 </div>
 

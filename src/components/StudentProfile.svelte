@@ -1,6 +1,6 @@
 <script>
     import {stores} from "$lib/stores.js";
-    import {hexToRGBA} from "$lib/utils.js";
+    import {hexToRGBA} from "../utilities/utils.js";
 
 
 </script>
@@ -13,11 +13,11 @@
         <div class="row">
             <div class="card-major" style="background-color: {hexToRGBA($stores.backgroundColor, 0.7)}">
                 <div class="text-content" style="color: {$stores.textColor}">
-                    <div class="text">İsim: <span>Abdullah Serhan Başdemirci</span></div>
-                    <div class="text">Bölüm: <span>Malzeme Bilimi ve Nanoteknoloji Mühendisliği</span></div>
-                    <div class="text">Öğrenci No: <span>221110085</span></div>
-                    <div class="text">Sınıf: <span>2. Sınıf</span></div>
-                    <div class="text">Email: <span>amikhailov@etu.edu.tr</span></div>
+                    <div class="text">İsim: <span>{$stores.currentObject.student_Fname} {$stores.currentObject.student_Lname}</span></div>
+                    <div class="text">Bölüm: <span>{$stores.currentObject.student_Department}</span></div>
+                    <div class="text">Öğrenci No: <span>{$stores.currentObject.student_ID}</span></div>
+                    <div class="text">Sınıf: <span>{$stores.currentObject.student_Grade}. Sınıf</span></div>
+                    <div class="text">Email: <span>{$stores.currentObject.student_Mail}</span></div>
                 </div>
             </div>
         </div>

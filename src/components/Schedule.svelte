@@ -1,6 +1,6 @@
 <script>
     import {stores} from "$lib/stores.js";
-    import {hexToRGBA} from "$lib/utils.js";
+    import {hexToRGBA} from "../utilities/utils.js";
     import {onMount} from "svelte";
 
     let days = ['Pzt', 'Sal', 'Car', 'Per', 'Cum', 'Cmt'];
@@ -26,7 +26,7 @@
 
 <div class="content" style="background: transparent">
     <div class="table">
-        {#await $stores.student.createSchedule()}
+        {#await $stores.currentObject.createSchedule()}
             waiting...
         {:then schedule}
             <div class="rows" style="height: 80%">

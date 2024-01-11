@@ -42,7 +42,7 @@
             <svelte:component this={Schedule}/>
         </div>
         <div class="swiper-slide">
-            {#if  $stores.currentState === "student"}
+            {#if  $stores.currentState === $stores.states.STUDENT}
                 <svelte:component this={StudentProfile}/>
             {:else if $stores.currentState === "lecture"}
                 <svelte:component this={LectureInfo}/>
