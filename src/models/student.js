@@ -1,5 +1,4 @@
-import {stores} from "$lib/stores.js";
-import {getLectureSchedule, getLectureStudents, getStudentLectures, getLecture} from "$lib/fetcher.js";
+import {getLectureSchedule, getStudentLectures, getLecture} from "$lib/fetcher.js";
 
 export default class Student {
     constructor(student_ID, student_Fname, student_Lname, student_Mail, student_Department, student_Grade) {
@@ -9,7 +8,9 @@ export default class Student {
         this.student_Mail = student_Mail;
         this.student_Department = student_Department;
         this.student_Grade = student_Grade;
+        this.schedule = Array(6).fill().map(() => Array(14).fill(null));
         this.lectures = [];
+
     }
 
     getStudent_ID() {
@@ -36,24 +37,36 @@ export default class Student {
         this.lectures = getLecture(this.student_ID);
     }
 
+    async getList() {
+        let studentId = this.student_ID;
+        let lectures = await getStudentLectures(studentId);
+
+        let list = []
+
+        for (let lecture of lectures) {
+            list.push(await getLecture(lecture));
+        }
+
+        return list;
+
+    }
+
     async createSchedule() {
         let studentId = this.student_ID;
         let lectures = await getStudentLectures(studentId);
 
         let days = ['Pzt', 'Sal', 'Car', 'Per', 'Cum', 'Cmt'];
         let hours = ["08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18","19","20","21"];
-        let schedule = Array(6).fill().map(() => Array(14).fill(null));
 
         for (let lecture of lectures) {
             let lectureSchedule = await getLectureSchedule(lecture);
-
             for (let lectureSlot of lectureSchedule) {
                 let dayIndex = days.indexOf(lectureSlot.day);
                 let hourIndex = hours.indexOf(lectureSlot.start);
-                schedule[dayIndex][hourIndex] = lecture;
+                this.schedule[dayIndex][hourIndex] = lecture
             }
         }
-        return schedule;
+        return this.schedule;
     }
 
 

@@ -1,17 +1,37 @@
 <script>
     import {stores} from "$lib/stores.js";
+    import Lecture from "../models/lecture.js";
 
-    export const data = [
-        {title: "title1", description: "description1"},
-        {title: "title2", description: "description2"},
-        {title: "title3", description: "description3"},
-        {title: "title4", description: "description4"},
-        {title: "title5", description: "description5"},
-        {title: "title6", description: "description6"},
-        {title: "title7", description: "description7"},
-        {title: "title8", description: "description8"},
-        {title: "title9", description: "description9"}
-    ]
+
+    function clickHandler(item) {
+        $stores.restoreStack.push($stores.currentObject);
+
+        if ($stores.currentState === $stores.states.STUDENT) {
+            $stores.currentState = $stores.states.LECTURE;
+            $stores.currentObject = new Lecture(
+                item.title,
+                item.description
+            );
+
+            console.log($stores.currentObject)
+        }
+
+        else if ($stores.currentState === $stores.states.LECTURE) {
+            $stores.currentState = $stores.states.STUDENT;
+            $stores.currentObject = new Student(
+
+            );
+        }
+
+        else if ($stores.currentState === $stores.states.CLASS) {
+            $stores.currentState = $stores.states.LECTURE;
+            $stores.currentObject = new Lecture(
+
+            );
+        }
+
+
+    }
 
 </script>
 
@@ -19,13 +39,13 @@
 
 <div class="content">
     <div class="list">
-        {#await $stores.student.lectures}
+        {#await $stores.currentObject.getList()}
             waiting...
-        {:then lectures}
-            {#each lectures as lecture}
-                <div class="item">
-                    <div class="title" style="color: {$stores.textColor}">{lecture.title}</div>
-                    <div class="description" style="color: {$stores.textColor}">{lecture.description}</div>
+        {:then items}
+            {#each items as item}
+                <div class="item" on:click={clickHandler(item)}>
+                    <div class="title" style="color: {$stores.textColor}">{item.title}</div>
+                    <div class="description" style="color: {$stores.textColor}">{item.description}</div>
                 </div>
             {/each}
         {/await}
