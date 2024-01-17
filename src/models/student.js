@@ -1,4 +1,4 @@
-import {getLectureSchedule, getStudentLectures, getLecture} from "$lib/fetcher.js";
+import {getScheduleOfLecture, getEnrolledLecturesOfStudent, getLecture} from "$lib/fetcher.js";
 
 export default class Student {
     constructor(student_ID, student_Fname, student_Lname, student_Mail, student_Department, student_Grade) {
@@ -9,37 +9,15 @@ export default class Student {
         this.student_Department = student_Department;
         this.student_Grade = student_Grade;
         this.schedule = Array(6).fill().map(() => Array(14).fill(null));
-        this.lectures = [];
+        this.enrolledLectures = [];
 
     }
 
-    getStudent_ID() {
-        return this.student_ID;
-    }
-
-    getStudent_Fname() {
-        return this.student_Fname;
-    }
-
-    getStudent_Lname() {
-        return this.student_Lname;
-    }
-
-    getStudent_Mail() {
-        return this.student_Mail;
-    }
-
-    getStudent_Department() {
-        return this.student_Department;
-    }
-
-    setLectures(lectures) {
-        this.lectures = getLecture(this.student_ID);
-    }
+    /*
 
     async getList() {
         let studentId = this.student_ID;
-        let lectures = await getStudentLectures(studentId);
+        let lectures = await getEnrolledLecturesOfStudent(studentId);
 
         let list = []
 
@@ -51,15 +29,17 @@ export default class Student {
 
     }
 
+
+
     async createSchedule() {
         let studentId = this.student_ID;
-        let lectures = await getStudentLectures(studentId);
+        let lectures = await getEnrolledLecturesOfStudent(studentId);
 
         let days = ['Pzt', 'Sal', 'Car', 'Per', 'Cum', 'Cmt'];
         let hours = ["08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18","19","20","21"];
 
         for (let lecture of lectures) {
-            let lectureSchedule = await getLectureSchedule(lecture);
+            let lectureSchedule = await getScheduleOfLecture(lecture.lecture_Code);
             for (let lectureSlot of lectureSchedule) {
                 let dayIndex = days.indexOf(lectureSlot.day);
                 let hourIndex = hours.indexOf(lectureSlot.start);
@@ -68,6 +48,9 @@ export default class Student {
         }
         return this.schedule;
     }
+
+
+     */
 
 
 

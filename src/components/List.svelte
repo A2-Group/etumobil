@@ -1,14 +1,14 @@
 <script>
     import {stores} from "$lib/stores.js";
-    import Lecture from "../models/lecture.js";
+    import Branch from "../models/branch.js";
 
 
     function clickHandler(item) {
-        $stores.restoreStack.push($stores.currentObject);
+        $stores.restoreStack.push($stores.currentState, $stores.currentObject);
 
         if ($stores.currentState === $stores.states.STUDENT) {
             $stores.currentState = $stores.states.LECTURE;
-            $stores.currentObject = new Lecture(
+            $stores.currentObject = new Branch(
                 item.title,
                 item.description
             );
@@ -25,11 +25,16 @@
 
         else if ($stores.currentState === $stores.states.CLASS) {
             $stores.currentState = $stores.states.LECTURE;
-            $stores.currentObject = new Lecture(
+            $stores.currentObject = new Branch(
 
             );
         }
 
+        let bottomBarFirstIndex = 0;
+        let slideTransitionSpeed = 0;
+
+        $stores.currentComponentIndex = bottomBarFirstIndex;
+        $stores.swiper.slideTo(bottomBarFirstIndex, slideTransitionSpeed);
 
     }
 

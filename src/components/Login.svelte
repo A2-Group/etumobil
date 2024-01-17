@@ -4,7 +4,7 @@
     import Background from "./Background.svelte";
     import {onMount} from "svelte";
 
-    import {getStudent, getStudentLectures, isStudentNoValid} from "$lib/fetcher.js";
+    import {getStudent, getEnrolledLecturesOfStudent, isStudentNoValid} from "$lib/fetcher.js";
 
     import {writeSecretFile} from "../utilities/fileIO.js"
 
@@ -37,6 +37,9 @@
     async function clickHandler() {
         let studentNo = document.querySelector('input[name="studentNo"]');
         let adminKey = document.querySelector('input[name="adminkey"]');
+
+        if (studentNo.value === "")
+            return;
 
         if ($stores.isAdmin) {
             if (adminKey.value !== "") {

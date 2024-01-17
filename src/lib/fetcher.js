@@ -172,7 +172,7 @@ export const searchTeacher = async (fullName) => {}
 
 
 // get function to get student's lectures by id returns array of classes
-export const getStudentLectures = async (id) => {
+export const getEnrolledLecturesOfStudent = async (id) => {
     return [
         "BIL395",
         "BIL481",
@@ -237,7 +237,7 @@ export const getLectureStudents = async (id) => {
 
 //get function to get lecture's days by id returns array of days
 
-export const getLectureSchedule = async (id) => {
+export const getScheduleOfLecture = async (id) => {
     let res;
     switch (id) {
         case "BIL395": res = [
