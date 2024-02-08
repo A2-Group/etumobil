@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store';
-import Student from "../models/student";
 import Stack from "../utilities/stack.js"
+import DataLoader from "$lib/dataloader.js";
 export const stores = writable({
     textColor: "#37516d",
     backgroundColor: "#F5F5F5",
@@ -13,23 +13,27 @@ export const stores = writable({
 
     isLoggedIn: false,
     isAdmin: false,
-    checkForAdmin: false,
+    admins: ["221110085", "201101013"],
     currentComponentIndex: 0,
 
     isOverlayOpen: false,
 
     swiper: null,
+    dataLoader: new DataLoader(null),
 
-    ownerStudent: new Student(),         // it corresponds to owner of the phone.
+    ownerStudentID: "",         // it corresponds to owner of the phone.
 
     states: {
-        STUDENT: "Student",
-        TEACHER: "Teacher",
-        LECTURE: "Lecture",
-        CLASS: "Class"
+        STUDENT: "student_ID",
+        BRANCH: "branch_ID",
+        TEACHER: "teacher_ID",
+        LECTURE: "lecture_ID",
+        CLASS: "class_ID"
     },
-    currentState: "Student",
-    currentObject: new Student(),
-    restoreStack: new Stack()       // it contains tuples such that first element corresponds to state and
-                                    // second elements corresponds to object.
+
+    currentState: "student_ID",
+    currentStateID: "",
+
+    restoreStack: new Stack()
+
 });

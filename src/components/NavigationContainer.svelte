@@ -9,11 +9,8 @@
 
     export let Schedule;
     export let StudentProfile;
-    export let LectureInfo;
+    export let BranchProfile;
     export let List;
-    // export let DynamicBackground;
-
-
 
 
     onMount(() => {
@@ -32,28 +29,26 @@
         });
     });
 
+
+
 </script>
 
 
 <div class="swiper mySwiper">
-
     <div class="swiper-wrapper">
         <div class="swiper-slide">
             <svelte:component this={Schedule}/>
         </div>
         <div class="swiper-slide">
-            {#if  $stores.currentState === $stores.states.STUDENT}
+            {#if $stores.currentState === $stores.states.STUDENT}
                 <svelte:component this={StudentProfile}/>
-            {:else if $stores.currentState === "lecture"}
-                <svelte:component this={LectureInfo}/>
+            {:else if $stores.currentState === $stores.states.BRANCH}
+                <svelte:component this={BranchProfile}/>
             {/if}
         </div>
         <div class="swiper-slide">
             <svelte:component this={List}/>
         </div>
-<!--        <div class="swiper-slide">-->
-<!--            <svelte:component this={DynamicBackground}/>-->
-<!--        </div>-->
     </div>
     <DynamicBackground />
 </div>

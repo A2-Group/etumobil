@@ -4,14 +4,9 @@
     import Background from "./Background.svelte";
     import {onMount} from "svelte";
 
-    import {getStudent, getStudentLectures, isStudentNoValid} from "$lib/fetcher.js";
+    import {writeOwnerStudentIDToFile} from "../utilities/utils.js";
 
-    import {writeSecretFile} from "../utilities/fileIO.js"
-
-
-    let studentNo;
     let showAlert = false;
-
 
     onMount(() => {
         document.body.style.background = $stores.gradientColor;
@@ -21,10 +16,9 @@
 
     async function keyboardHandler(event) {
         let studentNo = event.target.value;
-
         if (studentNo.length === 9) {
-            if (isStudentNoValid(studentNo)) {
-                $stores.isAdmin = (studentNo === "221110085" || studentNo === "201101013");
+            if (await $stores.dataLoader.isStudentExist(studentNo)) {
+               $stores.isAdmin = $stores.admins.includes(studentNo);
             }
             else {
                 studentNo = '';
@@ -35,8 +29,9 @@
     }
 
     async function clickHandler() {
-        let studentNo = document.querySelector('input[name="studentNo"]');
+        $stores.ownerStudentID = document.querySelector('input[name="studentNo"]').value;
         let adminKey = document.querySelector('input[name="adminkey"]');
+
 
         if ($stores.isAdmin) {
             if (adminKey.value !== "") {
@@ -47,10 +42,12 @@
             }
         }
         $stores.isLoggedIn = true;
-        $stores.ownerStudent = await getStudent(studentNo.value);
         $stores.currentState = $stores.states.STUDENT;
-        $stores.currentObject = $stores.ownerStudent;
+        $stores.currentStateID = $stores.ownerStudentID;
+        $stores.stack.push($stores.currentState, $stores.currentStateID);
+        await writeOwnerStudentIDToFile($stores.ownerStudentID);
     }
+
 
 </script>
 
