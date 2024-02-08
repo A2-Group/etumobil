@@ -41,8 +41,14 @@
                     {#each schedule as daySchedule, i}
                         <div class="course" style="background-color: {randoRgbaBackgroundColor(daySchedule[j], i, Math.floor(j/2))}">
                             <div class="text-content">
-                                <div class="course-name">{daySchedule[j] || ''}</div>
-                                <div class="course-classroom">{daySchedule[j] ? 'room '+i+j : ''}</div>
+                                {#if $stores.currentState === $stores.states.STUDENT}
+                                    <div class="course-name">{daySchedule[j].lecture_Code || ''}</div>
+                                    <div class="course-classroom">{daySchedule[j] ? 'room '+i+j : ''}</div>
+                                {/if}
+                                {#if $stores.currentState === $stores.state.LECTURE}
+                                    <div class="course-name">{daySchedule[j] || ''}</div>
+                                    <div class="course-classroom">{daySchedule[j] ? 'room '+i+j : ''}</div>
+                                {/if}
                             </div>
                         </div>
                     {/each}
