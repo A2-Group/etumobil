@@ -1,0 +1,13 @@
+{
+  "DB_NAME": "spring2023.db",
+  "UBS_USERNAME": "***@etu.edu.tr",
+  "UBS_PASSWORD": "***",
+  "INSERT_STUDENT" : "False",
+  "INSERT_LECTURE" : "False",
+  "INSERT_BRANCH" : "False",
+  "INSERT_TEACHER" : "False",
+  "INSERT_ENROLLED_LECTURE" : "False",
+  "INSERT_CLASS" : "False",
+  "INSERT_SCHEDULE": "False",
+  "INSERT_CLASS_SCHEDULE": "False"
+}
